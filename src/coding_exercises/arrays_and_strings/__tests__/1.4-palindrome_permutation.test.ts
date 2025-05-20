@@ -1,4 +1,4 @@
-import {isPalindromePermutationCount, isPalindromePermutationSort} from '../palindrome_permutation';
+import {isPalindromePermutationCount, isPalindromePermutationSort} from '../1.4-palindrome_permutation';
 
 describe('Palindrome Permutation', () => {
     it('should say that "taco cat" is a palindrome', () => {
