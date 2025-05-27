@@ -3,10 +3,9 @@
  * array into smaller subarrays, recursively sorts them, and merges the sorted
  * subarrays to produce the final sorted array.
  *
+ * @param {number[]} unsorted - The array to sort.
  * @return {number[]} The sorted array after applying the merge sort algorithm.
  */
-
-// mergeSort recursively divides the array and calls merge on the result
 export function mergeSort(unsorted: number[]): number[] {
     if (unsorted.length <= 1) {
         return unsorted;
@@ -18,7 +17,13 @@ export function mergeSort(unsorted: number[]): number[] {
     return merge(mergeSort(left), mergeSort(right));
 }
 
-// merge will compare the two input sorted arrays and merge them
+/**
+ * Merges two sorted arrays into one sorted array. The input arrays must be sorted.
+ *
+ * @param {number[]} left - The first sorted array.
+ * @param {number[]} right - The second sorted array.
+ * @return {number[]} A new array containing all elements from both input arrays, sorted in ascending order.
+ */
 export function merge(left: number[], right: number[]): number[] {
     let resultArray: number[] = [];
     let leftIndex: number = 0;
