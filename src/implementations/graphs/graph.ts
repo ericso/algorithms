@@ -63,7 +63,7 @@ export class GraphAdjList {
 
     /**
      * Prints the graph's vertex cover as a list of nodes. The vertex cover is the set of nodes that "covers"
-     * the entire graph. This is NOT the minimum vertex cover.
+     * the entire graph, meaning the set of nodes that touch every edge. This is NOT the minimum vertex cover.
      *
      * @return {string} The adjacency list of the graph represented by a string.
      */
