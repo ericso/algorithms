@@ -125,3 +125,46 @@ export function minEditDistanceSpaceOptimized(word1: string, word2: string): num
 
     return prev[n];
 }
+
+/**
+ * This is an implementation of Ukkonen’s algorithm, which computes if an edit distance is within a certain threshold.
+ */
+export function withinEditDistance(s1: string, s2: string, maxDist: number): boolean {
+    const m = s1.length;
+    const n = s2.length;
+
+    // Quick length check
+    if (n - m > maxDist) return false;
+
+    // Always iterate over shorter string to save space
+    if (m > n) return withinEditDistance(s2, s1, maxDist);
+
+    let prev = Array.from({ length: n + 1 }, (_, j) => j);
+
+    for (let i = 1; i <= m; i++) {
+        const curr = new Array(n + 1).fill(Infinity);
+        curr[0] = i;
+
+        // Narrow the j-loop to [max(1, i-k), min(n, i+k)]
+        const from = Math.max(1, i - maxDist);
+        const to = Math.min(n, i + maxDist);
+
+        for (let j = from; j <= to; j++) {
+            if (s1[i - 1] === s2[j - 1]) {
+                curr[j] = prev[j - 1];
+            } else {
+                curr[j] = Math.min(
+                    curr[j - 1] + 1,     // insert
+                    prev[j] + 1,         // delete
+                    prev[j - 1] + 1      // replace
+                );
+            }
+        }
+
+        // Early exit: if all values in the stripe are > maxDist, fail fast
+        if (Math.min(...curr.slice(from, to + 1)) > maxDist) return false;
+        prev = curr;
+    }
+
+    return prev[n] <= maxDist;
+}
